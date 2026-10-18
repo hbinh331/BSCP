@@ -1666,6 +1666,11 @@ very-long-strings-so-very-long-string-so-very-long-string-so-very-long-string-so
   
 >Cross-Site Request Forgery vulnerability allows an attacker to force users to perform actions that they did not intend to perform. This can enable attacker to change victim email address and use password reset to take over the account.  
   
+### CSRF token not tied to user's session
+The application maintains a global pool of csrf tokens. When a request sent to the app, the app only verifies whether if the token exists in the pool and doesn't care if the token matches the session.  
+To bypass, just intercept a request and steal a working csrf token, then include it in the html form feeded to victims.  
+
+[Portswigger Lab: CSRF where token is not tied to user session](#https://portswigger.net/web-security/csrf/bypassing-token-validation/lab-token-not-tied-to-user-session)
 ### OAuth  
 
 >oAuth linking exploit server hosting iframe, then deliver to victim, forcing user to update code linked.  
