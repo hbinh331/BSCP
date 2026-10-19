@@ -3094,7 +3094,7 @@ Host: OASTIFY.COM
 
 ![identify ssrf flawed request parsing host header](images/identify-ssrf-host.png)  
 
->Use the Host header to target 192.168.0.141 or ```localhost```, and notice the response give 302 status admin interface found. Append /admin to the absolute URL in the request line and send the request. Observe SSRF response.  
+>Use the Host header to target 192.168.0.141 or ```localhost``` (in practice, you might need to brute force the IP in the range 192.168.0.0/24 to get the correct IP), and notice the response give 302 status admin interface found. Append /admin to the absolute URL in the request line and send the request. Observe SSRF response.  
 
 ![ssrf](images/ssrf.png)  
 
