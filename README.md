@@ -1700,6 +1700,8 @@ very-long-strings-so-very-long-string-so-very-long-string-so-very-long-string-so
   
 ## CSRF Account Takeover  
 
+[CSRF validation based on request method](#csrf-validation-based-on-request-method)  
+[CSRF not tied to user session](#csrf-token-not-tied-to-users-session)
 [OAuth](#oauth)  
 [Referer Validation CSRF](#referer-validation-csrf)  
 [Referer Header Present](#referer-header-present)  
@@ -1712,10 +1714,19 @@ very-long-strings-so-very-long-string-so-very-long-string-so-very-long-string-so
 [SameSite Lax bypass](#samesite-lax-bypass)  
   
 >Cross-Site Request Forgery vulnerability allows an attacker to force users to perform actions that they did not intend to perform. This can enable attacker to change victim email address and use password reset to take over the account.  
-  
+### CSRF validation based on request method
+> The application accepts both change-email request methods `POST` or `GET`. However, when using `GET` method, csrf token can be omitted and the request still success.
+
+![alt text](image-1.png)
+
+> Change request method
+
+![alt text](image-2.png)
+
 ### CSRF token not tied to user's session
-The application maintains a global pool of csrf tokens. When a request sent to the app, the app only verifies whether if the token exists in the pool and doesn't care if the token matches the session.  
-To bypass, just intercept a request and steal a working csrf token, then include it in the html form feeded to victims.  
+> The application maintains a global pool of csrf tokens. When a request sent to the app, the app only verifies whether if the token exists in the pool and doesn't care if the token matches the session.  
+
+> To bypass, just intercept a request and steal a working csrf token, then include it in the html form feeded to victims.  
 
 [Portswigger Lab: CSRF where token is not tied to user session](#https://portswigger.net/web-security/csrf/bypassing-token-validation/lab-token-not-tied-to-user-session)
 ### OAuth  
