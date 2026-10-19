@@ -3087,7 +3087,7 @@ Host: localhost
 
 >***Identify*** SSRF flawed request parsing vulnerability by changing the `HOST` header to Collaborator server and providing an absolute URL in the GET request line and observe the response from the Collaborator server. The collaborator receives request, which indicates that ***the server sends request to the host in Host header***
 
->In this application, /admin only exists at the correct IP address. The flawed flow in this app is: First **Frontend** validates (ONLY validate) using absolute URL -> OK, validation passed -> **Frontend** send request to **Backend** address appears in Host header. Therefore, the final request is 192.168.0.x/admin
+>In this application, /admin only exists at the correct IP address. The flawed flow in this app is: First **Frontend** validates (ONLY validate) using absolute URL -> OK, validation passed -> **Frontend** (which is in the internal network, therefore can access local IP) send request to **Backend** address appears in Host header. Therefore, the final request is 192.168.0.x/admin
 
 ```
 Attacker → [Front-end / Router] → [real back-end]
