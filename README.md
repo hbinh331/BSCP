@@ -3515,6 +3515,8 @@ Inject exploit in to read or delete user sensitive data. After injection, trigge
 [LFI Attacks](#lfi-attacks)  
 [Admin Portal Files](#admin-portal-files)  
 [Path Traversal Authz](#path-traversal-authz)  
+
+***NOTE: These labs' url to fetch the file is `/image?filename=.....`. Then append the payload (such as `/etc/passwd`)***
   
 ### LFI attacks  
 

